@@ -29,9 +29,10 @@ const App = () => {
               <Route exact path="/cryptocurrencies">
                 <Cryptocurrencies />
               </Route>
-              <Route exact path="/crypto/:coinId">
-                <CryptoDetails />
-              </Route>
+              <Route
+                path="/crypto/:coinId"
+                children={<CryptoDetails />}
+              ></Route>
               <Route exact path="/news">
                 <News />
               </Route>
@@ -43,8 +44,8 @@ const App = () => {
             level={5}
             style={{ color: "white", textAlign: "center" }}
           >
-            Copyright © 2021
-            <Link to="/">Cryptoverse Inc.</Link> <br />
+            Copyright &copy; {new Date().getFullYear()}
+            <Link to="/"> Cryptoverse Inc.</Link> <br />
             All Rights Reserved.
           </Typography.Title>
           <Space>
