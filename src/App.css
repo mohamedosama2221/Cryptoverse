@@ -291,6 +291,7 @@ a:hover {
 }
 .news-card {
   min-height: 300px !important;
+  border-radius: 8px !important;
 }
 .news-image-container {
   display: flex !important;
