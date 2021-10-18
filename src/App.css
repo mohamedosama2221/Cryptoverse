@@ -290,8 +290,14 @@ a:hover {
   width: 180px;
 }
 .news-card {
+  /* min-height: 300px !important; */
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+.news-card--active {
   min-height: 300px !important;
   border-radius: 8px !important;
+  overflow: hidden;
 }
 .news-image-container {
   display: flex !important;

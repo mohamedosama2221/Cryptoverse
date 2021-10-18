@@ -5,6 +5,7 @@ import millify from "millify";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchMarketState } from "../../redux/actions";
+import Loader2 from "./../Loader/Loader2";
 import Loader from "./../Loader/Loader";
 const Cryptocurrencies = ({ simplified }) => {
   const [query, setQuery] = useState("");
@@ -15,7 +16,19 @@ const Cryptocurrencies = ({ simplified }) => {
   useEffect(() => {
     dispatch(fetchMarketState());
   }, [dispatch]);
-  if (!coins.length) return <Loader />;
+  if (!coins.length && simplified)
+    return (
+      <Row gutter={[24, 24]}>
+        {Array.from(Array(10)).map((news, index) => (
+          <Col xs={24} sm={12} lg={8} key={index}>
+            <Card hoverable className="news-card">
+              <Loader2 />
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    );
+  if (!coins.length && !simplified) return <Loader />;
   return (
     <div>
       {!simplified && (
