@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { fetchMarketNews } from "../../redux/actions";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import Loader2 from "./../Loader/Loader2";
 import Loader from "./../Loader/Loader";
 import { Typography, Row, Col, Avatar, Card, Select } from "antd";
 const { Option } = Select;
@@ -21,8 +22,19 @@ const News = ({ simplified }) => {
     dispatch(fetchMarketNews(newCategory));
   }, [newCategory]);
 
-  if (!news.length) return <Loader />;
-
+  if (!news.length && simplified)
+    return (
+      <Row gutter={[24, 24]}>
+        {Array.from(Array(6)).map((news, index) => (
+          <Col xs={24} sm={12} lg={8} key={index}>
+            <Card hoverable className="news-card">
+              <Loader2 />
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    );
+  if (!coins.length && !simplified) return <Loader />;
   return (
     <Row gutter={[32, 32]}>
       {!simplified && (
@@ -58,7 +70,7 @@ const News = ({ simplified }) => {
       <Row gutter={[24, 24]}>
         {newsArray.map((news, index) => (
           <Col xs={24} sm={12} lg={8} key={index}>
-            <Card hoverable className="news-card">
+            <Card hoverable className="news-card news-card--active">
               <a href={news.url} target="_blank" rel="noreferrer">
                 <div className="news-image-container">
                   <Title className="news-Title" level={4}>
