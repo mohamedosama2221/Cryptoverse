@@ -1,4 +1,4 @@
-import { FETCH_STATE } from "./../type";
+import { FETCH_STATE, FETCH_COIN_DETAILS, CLEAR_COIN } from "./../type";
 const initState = {
   MarketState: {
     total24hVolume: "",
@@ -8,6 +8,7 @@ const initState = {
     totalMarkets: "",
   },
   coins: [],
+  singleCoin: [],
 };
 
 export const cryptoReducer = (state = initState, { type, payload }) => {
@@ -30,6 +31,16 @@ export const cryptoReducer = (state = initState, { type, payload }) => {
           totalMarkets: totalMarkets,
         },
         coins: payload.coins,
+      };
+    case FETCH_COIN_DETAILS:
+      return {
+        ...state,
+        singleCoin: [payload],
+      };
+    case CLEAR_COIN:
+      return {
+        ...state,
+        singleCoin: [],
       };
     default:
       return state;

@@ -18,9 +18,9 @@ const Cryptocurrencies = ({ simplified }) => {
   }, [dispatch]);
   if (!coins.length && simplified)
     return (
-      <Row gutter={[24, 24]}>
+      <Row gutter={[50, 50]}>
         {Array.from(Array(10)).map((news, index) => (
-          <Col xs={24} sm={12} lg={8} key={index}>
+          <Col xs={24} sm={12} lg={6} key={index}>
             <Card hoverable className="news-card">
               <Loader2 />
             </Card>
@@ -46,7 +46,7 @@ const Cryptocurrencies = ({ simplified }) => {
           ?.filter((e) => e.name.toLowerCase().includes(query.toLowerCase()))
           .map((coin) => (
             <Col xs={24} sm={12} lg={6} className="crypto-card" key={coin.id}>
-              <Link to={`/crypto/${coin.id}`}>
+              <Link to={`/crypto/${coin.uuid}`}>
                 <Card
                   style={{ borderRadius: "8px" }}
                   title={`${coin.rank}. ${coin.name}`}
