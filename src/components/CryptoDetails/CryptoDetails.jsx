@@ -16,25 +16,35 @@ import {
   NumberOutlined,
   ThunderboltOutlined,
 } from "@ant-design/icons";
-import { fetchCoinDetails, clearCoin } from "../../redux/actions";
+import {
+  fetchCoinDetails,
+  fetchCoinChart,
+  clearCoin,
+} from "../../redux/actions";
 import Loader from "./../Loader/Loader";
+import LineChart from "../LineChart/LineChart";
 const { Title, Text } = Typography;
 const { Option } = Select;
 
 const CryptoDetails = () => {
   const { coinId } = useParams();
+  const coin = useSelector((state) => state.cryptoReducer.singleCoin);
+  const coinHistory = useSelector((state) => state.cryptoReducer.coinChart);
+  const time = ["3h", "24h", "7d", "30d", "1y", "3m", "3y", "5y"];
+  const [timePeriod, setTimePeriod] = useState("7d");
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCoinDetails(coinId));
+    dispatch(fetchCoinChart(coinId, timePeriod));
     return () => {
       dispatch(clearCoin());
     };
   }, []);
-  const coin = useSelector((state) => state.cryptoReducer.singleCoin);
-  const time = ["3h", "24h", "7d", "30d", "1y", "3m", "3y", "5y"];
-  const [timePeriod, setTimePeriod] = useState("7d");
-
+  const timePeriodHandler = (value) => {
+    setTimePeriod(value);
+    dispatch(fetchCoinChart(coinId, timePeriod));
+  };
   if (!coin.length) return <Loader />;
 
   const stats = [
@@ -108,13 +118,17 @@ const CryptoDetails = () => {
         defaultValue="7d"
         className="select-timeperiod"
         placeholder="Select Timeperiod"
-        onChange={(value) => setTimePeriod(value)}
+        onChange={(value) => timePeriodHandler(value)}
       >
         {time.map((date) => (
           <Option key={date}>{date}</Option>
         ))}
       </Select>
-
+      <LineChart
+        coinHistory={coinHistory}
+        currentPrice={millify(coin[0].price)}
+        coinName={coin[0].name}
+      />
       <Col className="stats-container">
         <Col className="coin-value-statistics">
           <Col className="coin-value-statistics-heading">
