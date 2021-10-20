@@ -6,7 +6,7 @@ const MyLoader = (props) => (
     rtl
     speed={3}
     height={124}
-    style={{ width: "100%" }}
+    style={{ width: "100%", height: "100%" }}
     viewBox="0 0 250 124"
     backgroundColor="#f3f3f3"
     foregroundColor="#ecebeb"
