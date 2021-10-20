@@ -3,6 +3,7 @@ import {
   FETCH_COIN_DETAILS,
   CLEAR_COIN,
   FETCH_COIN_CHART,
+  FETCH_EXCHANGE,
 } from "./../type";
 const initState = {
   MarketState: {
@@ -15,6 +16,7 @@ const initState = {
   coins: [],
   singleCoin: [],
   coinChart: {},
+  exchanges: {},
 };
 
 export const cryptoReducer = (state = initState, { type, payload }) => {
@@ -47,6 +49,11 @@ export const cryptoReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         coinChart: { ...payload },
+      };
+    case FETCH_EXCHANGE:
+      return {
+        ...state,
+        exchanges: { ...payload },
       };
     case CLEAR_COIN:
       return {

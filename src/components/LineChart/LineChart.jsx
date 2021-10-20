@@ -7,14 +7,15 @@ const { Title } = Typography;
 const LineChart = ({ coinHistory, currentPrice, coinName }) => {
   const coinPrice = [];
   const coinTimestamp = [];
-  console.log(coinHistory.history);
 
   for (let i = 0; i < coinHistory?.history?.length; i += 1) {
     coinPrice.push(coinHistory?.history[i]?.price);
   }
 
   for (let i = 0; i < coinHistory?.history?.length; i += 1) {
-    coinTimestamp.push(new Date(coinHistory.history[i].timestamp));
+    coinTimestamp.push(
+      new Date(coinHistory.history[i].timestamp).toLocaleDateString()
+    );
   }
 
   const data = {

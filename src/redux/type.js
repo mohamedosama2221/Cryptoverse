@@ -2,4 +2,5 @@ export const FETCH_STATE = "FETCH_STATE";
 export const FETCH_NEWS = "FETCH_NEWS";
 export const FETCH_COIN_DETAILS = "FETCH_COIN_DETAILS";
 export const FETCH_COIN_CHART = "FETCH_COIN_CHART";
+export const FETCH_EXCHANGE = "FETCH_EXCHANGE";
 export const CLEAR_COIN = "CLEAR_COIN";
