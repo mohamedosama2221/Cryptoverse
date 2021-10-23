@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Button, Menu, Typography, Avatar } from "antd";
 import { Link } from "react-router-dom";
+
 import {
   HomeOutlined,
   MoneyCollectOutlined,
@@ -10,10 +11,12 @@ import {
 } from "@ant-design/icons";
 
 import icon from "../../assets/images/cryptocurrency.png";
+import { navbarContext } from "../../context/navbarContext";
 
 const Navbar = () => {
   const [activeMenu, setActiveMenu] = useState(true);
   const [screenSize, setScreenSize] = useState(undefined);
+  const { selectedIndex, setSelectedIndex } = useContext(navbarContext);
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);
@@ -53,7 +56,14 @@ const Navbar = () => {
       <div className="logo-container">
         <Avatar src={icon} size="large" />
         <Typography.Title level={2} className="logo">
-          <Link to="/">Cryptoverse</Link>
+          <Link
+            to="/"
+            onClick={() => {
+              setSelectedIndex("0");
+            }}
+          >
+            Cryptoverse
+          </Link>
         </Typography.Title>
         <Button
           className="menu-control-container"
@@ -63,10 +73,21 @@ const Navbar = () => {
         </Button>
       </div>
       {activeMenu && (
-        <Menu theme="dark">
+        <Menu
+          theme="dark"
+          defaultSelectedKeys={["0"]}
+          selectedKeys={[selectedIndex]}
+        >
           {menuItems.map(({ to, icon }, index) => (
             <Menu.Item icon={icon} key={index}>
-              <Link to={index ? `/${to}` : "/"}>{to}</Link>
+              <Link
+                to={index ? `/${to}` : "/"}
+                onClick={() => {
+                  setSelectedIndex(index.toString());
+                }}
+              >
+                {to}
+              </Link>
             </Menu.Item>
           ))}
         </Menu>

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchMarketNews } from "../../redux/actions";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import Loader2 from "./../Loader/Loader2";
 import Loader from "./../Loader/Loader";
 import { Typography, Row, Col, Avatar, Card, Select } from "antd";
+import { fetchMarketState, fetchMarketNews } from "./../../redux/actions";
 const { Option } = Select;
 const { Title, Text } = Typography;
 const imgPlaceholder =
@@ -20,6 +20,7 @@ const News = ({ simplified }) => {
 
   useEffect(() => {
     dispatch(fetchMarketNews(newCategory));
+    dispatch(fetchMarketState());
   }, [newCategory]);
 
   if (!news.length && simplified)
@@ -34,7 +35,7 @@ const News = ({ simplified }) => {
         ))}
       </Row>
     );
-  if (!coins.length && !simplified) return <Loader />;
+  if (!news.length && !simplified) return <Loader />;
   return (
     <Row gutter={[32, 32]}>
       {!simplified && (
@@ -64,7 +65,6 @@ const News = ({ simplified }) => {
               </Option>
             ))}
           </Select>
-          ,
         </Col>
       )}
       <Row gutter={[24, 24]}>

@@ -13,7 +13,6 @@ import { exchangeOptions } from "../api/exchangeApi";
 
 export const fetchMarketState = () => async (dispatch) => {
   const res = await fetchData(options("/coins"));
-
   dispatch({ type: FETCH_STATE, payload: res.data });
 };
 
@@ -38,7 +37,6 @@ export const fetchCoinChart = (coinId, timeperiod) => async (dispatch) => {
 
 export const fetchExchanges = () => async (dispatch) => {
   const res = await fetchData(exchangeOptions);
-  console.log(res.data);
   dispatch({ type: FETCH_EXCHANGE, payload: res.data });
 };
 

@@ -32,7 +32,6 @@ const CryptoDetails = () => {
   const coinHistory = useSelector((state) => state.cryptoReducer.coinChart);
   const time = ["3h", "24h", "7d", "30d", "1y", "3m", "3y", "5y"];
   const [timePeriod, setTimePeriod] = useState("7d");
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCoinDetails(coinId));
@@ -50,7 +49,7 @@ const CryptoDetails = () => {
   const stats = [
     {
       title: "Price to USD",
-      value: `$ ${coin[0].price && millify(coin[0].price)}`,
+      value: `$ ${millify(coin[0].price)}`,
       icon: <DollarCircleOutlined />,
     },
     { title: "Rank", value: coin[0].rank, icon: <NumberOutlined /> },
@@ -140,8 +139,8 @@ const CryptoDetails = () => {
               base and quote currency, the rank, and trading volume.
             </p>
           </Col>
-          {stats.map(({ icon, title, value }) => (
-            <Col className="coin-stats">
+          {stats.map(({ icon, title, value }, index) => (
+            <Col className="coin-stats" key={index}>
               <Col className="coin-stats-name">
                 <Text>{icon}</Text>
                 <Text>{title}</Text>
@@ -160,8 +159,8 @@ const CryptoDetails = () => {
               base and quote currency, the rank, and trading volume.
             </p>
           </Col>
-          {genericStats.map(({ icon, title, value }) => (
-            <Col className="coin-stats">
+          {genericStats.map(({ icon, title, value }, index) => (
+            <Col className="coin-stats" key={index}>
               <Col className="coin-stats-name">
                 <Text>{icon}</Text>
                 <Text>{title}</Text>

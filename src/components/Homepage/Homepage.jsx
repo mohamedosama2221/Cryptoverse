@@ -1,16 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import millify from "millify";
 import { Typography, Row, Col, Statistic } from "antd";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { fetchMarketState } from "../../redux/actions";
 import { useSelector } from "react-redux";
 import { Cryptocurrencies } from "..";
 import News from "./../News/News";
+import { navbarContext } from "../../context/navbarContext";
 const { Title } = Typography;
 
 const Homepage = () => {
-  const dispatch = useDispatch();
   const {
     total24hVolume,
     totalCoins,
@@ -19,9 +17,8 @@ const Homepage = () => {
     totalMarkets,
   } = useSelector((state) => state.cryptoReducer.MarketState);
 
-  useEffect(() => {
-    dispatch(fetchMarketState());
-  }, [dispatch]);
+  const { setSelectedIndex } = useContext(navbarContext);
+
   return (
     <div>
       <Title level={2} className="heading">
@@ -64,7 +61,14 @@ const Homepage = () => {
           Top 10 Cryptocurrencies in the world
         </Title>
         <Title level={5} className="show-more">
-          <Link to="/Cryptocurrencies">Show More</Link>
+          <Link
+            to="/Cryptocurrencies"
+            onClick={() => {
+              setSelectedIndex("1");
+            }}
+          >
+            Show More
+          </Link>
         </Title>
       </div>
       <Cryptocurrencies simplified />
@@ -73,7 +77,14 @@ const Homepage = () => {
           Latest Crypto News
         </Title>
         <Title level={5} className="show-more">
-          <Link to="/news">Show More</Link>
+          <Link
+            to="/news"
+            onClick={() => {
+              setSelectedIndex("3");
+            }}
+          >
+            Show More
+          </Link>
         </Title>
       </div>
       <News simplified />

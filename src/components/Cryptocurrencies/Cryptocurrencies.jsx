@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Row, Card, Col, Input } from "antd";
 import { Link } from "react-router-dom";
 import millify from "millify";
@@ -7,11 +7,14 @@ import { useDispatch } from "react-redux";
 import { fetchMarketState } from "../../redux/actions";
 import Loader2 from "./../Loader/Loader2";
 import Loader from "./../Loader/Loader";
+import { navbarContext } from "../../context/navbarContext";
 const Cryptocurrencies = ({ simplified }) => {
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
 
+  const { setSelectedIndex } = useContext(navbarContext);
   const coins = useSelector((state) => state.cryptoReducer.coins);
+
   const coinsArray = simplified ? coins.slice(0, 10) : coins;
   useEffect(() => {
     dispatch(fetchMarketState());
@@ -46,7 +49,12 @@ const Cryptocurrencies = ({ simplified }) => {
           ?.filter((e) => e.name.toLowerCase().includes(query.toLowerCase()))
           .map((coin) => (
             <Col xs={24} sm={12} lg={6} className="crypto-card" key={coin.id}>
-              <Link to={`/crypto/${coin.uuid}`}>
+              <Link
+                to={`/crypto/${coin.uuid}`}
+                onClick={() => {
+                  setSelectedIndex("1");
+                }}
+              >
                 <Card
                   style={{ borderRadius: "8px" }}
                   title={`${coin.rank}. ${coin.name}`}
@@ -62,10 +70,9 @@ const Cryptocurrencies = ({ simplified }) => {
                   <p>
                     Price:
                     <span style={{ fontWeight: "700", paddingLeft: "5px" }}>
-                      {millify(parseInt(coin.price), {
-                        precision: 4,
-                        decimalSeparator: ",",
-                      })}
+                      {Math.floor(coin.price)}
+                      {coin.price.indexOf(".") < 3 &&
+                        coin.price.substring(coin.price.indexOf("."), 5)}
                     </span>
                   </p>
                   <p>
@@ -84,26 +91,26 @@ const Cryptocurrencies = ({ simplified }) => {
                     Daily Change:
                     <span
                       style={
-                        millify(parseInt(coin.change)) > 0
+                        coin.change > 0
                           ? {
                               color: "green",
                               fontWeight: "700",
                               paddingLeft: "5px",
                             }
-                          : millify(parseInt(coin.change)) == 0
+                          : coin.change == (0 || null)
                           ? {
                               color: "gray",
                               fontWeight: "700",
                               paddingLeft: "5px",
                             }
                           : {
-                              color: "green",
+                              color: "red",
                               fontWeight: "700",
                               paddingLeft: "5px",
                             }
                       }
                     >
-                      {millify(parseInt(coin.change))}%
+                      {coin.change ? coin.change : 0}%
                     </span>
                   </p>
                 </Card>
