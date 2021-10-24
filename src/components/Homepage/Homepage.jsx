@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import millify from "millify";
 import { Typography, Row, Col, Statistic } from "antd";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Cryptocurrencies } from "..";
 import News from "./../News/News";
-import { navbarContext } from "../../context/navbarContext";
+import { useNavbarContext } from "../../context/navbarContext";
 const { Title } = Typography;
 
 const Homepage = () => {
@@ -17,7 +17,7 @@ const Homepage = () => {
     totalMarkets,
   } = useSelector((state) => state.cryptoReducer.MarketState);
 
-  const { setSelectedIndex } = useContext(navbarContext);
+  const { setSelectedIndex } = useNavbarContext();
 
   return (
     <div>

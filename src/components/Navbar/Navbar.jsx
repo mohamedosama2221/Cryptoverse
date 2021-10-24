@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Menu, Typography, Avatar } from "antd";
 import { Link } from "react-router-dom";
 
@@ -11,12 +11,12 @@ import {
 } from "@ant-design/icons";
 
 import icon from "../../assets/images/cryptocurrency.png";
-import { navbarContext } from "../../context/navbarContext";
+import { useNavbarContext } from "../../context/navbarContext";
 
 const Navbar = () => {
   const [activeMenu, setActiveMenu] = useState(true);
   const [screenSize, setScreenSize] = useState(undefined);
-  const { selectedIndex, setSelectedIndex } = useContext(navbarContext);
+  const { selectedIndex, setSelectedIndex } = useNavbarContext();
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);

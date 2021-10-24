@@ -5,7 +5,7 @@ export const newsOption = (newsCategory, count) => {
     headers: {
       "x-bingapis-sdk": "true",
       "x-rapidapi-host": "bing-news-search1.p.rapidapi.com",
-      "x-rapidapi-key": "7ce643c3famsh5f42bf67136da03p150c0bjsn398d327cbb94",
+      "x-rapidapi-key": process.env.REACT_APP_RAPID_API,
       "X-Requested-With": "XMLHttpRequest",
     },
   };

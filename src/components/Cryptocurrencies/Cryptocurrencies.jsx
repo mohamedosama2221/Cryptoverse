@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Card, Col, Input } from "antd";
 import { Link } from "react-router-dom";
 import millify from "millify";
@@ -7,12 +7,12 @@ import { useDispatch } from "react-redux";
 import { fetchMarketState } from "../../redux/actions";
 import Loader2 from "./../Loader/Loader2";
 import Loader from "./../Loader/Loader";
-import { navbarContext } from "../../context/navbarContext";
+import { useNavbarContext } from "../../context/navbarContext";
 const Cryptocurrencies = ({ simplified }) => {
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
 
-  const { setSelectedIndex } = useContext(navbarContext);
+  const { setSelectedIndex } = useNavbarContext();
   const coins = useSelector((state) => state.cryptoReducer.coins);
 
   const coinsArray = simplified ? coins.slice(0, 10) : coins;
